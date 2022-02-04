@@ -20,19 +20,18 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
-          cache: 'npm'
 
       - name: npm install, build, and test
         run: |
           npm install
           npm run build --if-present
-          npm run test:ci --if-present
-        
-      - name: Upload production-ready build files
+          npm run test --if-present
+
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: production-files
-          path: ./build
+          name: node-app
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,9 +44,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: production-files
-          
-      
+          name: node-app
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -55,5 +52,5 @@ jobs:
         with:
           app-name: 'skp-spring-react-frontend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FD2150AD9910456F859FCA66ABD3C9D1 }}
-          package: 'build'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_73549129FAAB4376A63D39EC2BD5C8F8 }}
+          package: .
