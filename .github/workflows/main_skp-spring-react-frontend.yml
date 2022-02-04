@@ -53,4 +53,4 @@ jobs:
           app-name: 'skp-spring-react-frontend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FD2150AD9910456F859FCA66ABD3C9D1 }}
-          package: .
+          package: 'build'
