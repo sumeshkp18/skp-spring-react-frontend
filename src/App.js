@@ -6,7 +6,7 @@ function App() {
   const [message, SetMessage] = useState("");
 
   useState(() => {
-    fetch("http://localhost:8080/api/hello")
+    fetch("https://skp-spring-react-backend.azurewebsites.net/api/hello")
       .then(response => response.text())
       .then(message => {
         SetMessage(message)
